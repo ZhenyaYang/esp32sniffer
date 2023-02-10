@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define CHANNEL 6
+#define CHANNEL 1
 
 void send(const uint8_t *buf, uint32_t len) {
     for (int i=0; i<len; i++) {
@@ -51,4 +51,13 @@ void app_main() {
     esp_wifi_set_promiscuous(true);
     esp_wifi_set_promiscuous_rx_cb(sniffer_callback);
     esp_wifi_set_channel(CHANNEL, WIFI_SECOND_CHAN_NONE);
+    while (true)
+    {
+        int c = fgetc(stdin);
+        if(c >= 1 && c <= 14)
+        {
+            esp_wifi_set_channel(c, WIFI_SECOND_CHAN_NONE);
+        }
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
 }
