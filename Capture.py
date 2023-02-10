@@ -4,6 +4,11 @@ import serial
 import datetime
 import sys
 
+# Integer value 10 and 13, when converted to bytes from python side, one is b'\r' and the other is b'\n'
+# and strangely enough, if we write it to the serial, the esp32 side will read both to be 10
+# Something must be wrong with this serial write, but I don't have time to investigate into it
+# I simply offset it
+OFFSET = 50
 chan = 1
 port = "/dev/ttyS6"
 if len(sys.argv) == 3:
@@ -28,8 +33,7 @@ def write_hex(f, hex_string):
 header = 'd4c3b2a1' + '0200' + '0400' + '00000000' + '00000000' + 'c4090000' + '69000000'
 write_hex(f, header)
 
-ser.write(bytes([chan]))
-
+ser.write(bytes([chan + OFFSET]))
 print("Waiting for packets...")
 try:
     while True:

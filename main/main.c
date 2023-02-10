@@ -6,8 +6,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define CHANNEL 1
-
+// Integer value 10 and 13, when converted to bytes from python side, one is b'\r' and the other is b'\n'
+// and strangely enough, if we write it to the serial, the esp32 side will read both to be 10
+// Something must be wrong with this serial write, but I don't have time to investigate into it
+// I simply offset it
+#define OFFSET 50
 void send(const uint8_t *buf, uint32_t len) {
     for (int i=0; i<len; i++) {
         printf("%02x", buf[i]);
@@ -42,21 +45,21 @@ void sniffer_callback(void *buf, wifi_promiscuous_pkt_type_t type){
 
 void app_main() {
     nvs_flash_init();
-    tcpip_adapter_init();
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
     ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_AP));
     ESP_ERROR_CHECK(esp_wifi_start());
     esp_wifi_set_promiscuous(true);
-    esp_wifi_set_promiscuous_rx_cb(sniffer_callback);
-    esp_wifi_set_channel(CHANNEL, WIFI_SECOND_CHAN_NONE);
     while (true)
     {
         int c = fgetc(stdin);
+        c -= OFFSET;
         if(c >= 1 && c <= 14)
         {
+            printf("Channel set to %d\n", c);
             esp_wifi_set_channel(c, WIFI_SECOND_CHAN_NONE);
+            esp_wifi_set_promiscuous_rx_cb(sniffer_callback);
         }
         vTaskDelay(pdMS_TO_TICKS(100));
     }
