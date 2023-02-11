@@ -11,13 +11,20 @@ import sys
 OFFSET = 50
 chan = 1
 port = "/dev/ttyS6"
-if len(sys.argv) == 3:
+if len(sys.argv) == 4:
     port = sys.argv[1]
     chan = int(sys.argv[2])
+    mac_str = sys.argv[3]
 
-print("Port: "+port+" Channel: "+str(chan))
+print("Port: "+port+" Channel: "+str(chan)+" Mac: "+mac_str)
+
+mac = mac_str.replace(":", "")
+mac_bytes = bytearray.fromhex(mac)
 
 ser = serial.Serial(port, 921600)
+
+ser.write(bytes([chan + OFFSET]))
+ser.write(mac_bytes)
 
 filename = "capture_%s.pcap" % datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -33,7 +40,6 @@ def write_hex(f, hex_string):
 header = 'd4c3b2a1' + '0200' + '0400' + '00000000' + '00000000' + 'c4090000' + '69000000'
 write_hex(f, header)
 
-ser.write(bytes([chan + OFFSET]))
 print("Waiting for packets...")
 try:
     while True:

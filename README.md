@@ -27,8 +27,6 @@ Build & flash:
 `$ cd build`
 `$ make flash`
 
-Or, you can copy the build/hello-world.bin along with our connectivity bootloader + partition table, to make it running in our sous vide/oven
-
 Monitor to see the packets:
 
 ```
@@ -39,16 +37,19 @@ DATA:0100000063690b00650000006500000040000000ffffffffffffb8e85617cecefffffffffff
 ...
 ```
 
-Stop monitor `CTRL+]` and start `Capture.py port channel`
+Stop monitor `CTRL+]` and start `Capture.py port channel mac`
 
 ```
-$ ./Capture.py
-Creating capture file: capture_20200702_114220.pcap
-Starting Wireshark
+$ ./Capture.py /dev/ttyS6 11 34:94:54:47:f9:f4
+Port: /dev/ttyS6 Channel: 11 Mac: 34:94:54:47:f9:f4
+Creating capture file: capture_20230212_081757.pcap
 Waiting for packets...
-Packet  451.227441 121 121
-Packet  451.237686 121 121
-Packet  451.251294 121 121
+Channel set to 11
+Packet  23.835624 292 292
+Packet  23.938034 292 292
+Packet  24.040438 292 292
+Packet  24.142832 292 292
+Packet  24.245248 292 292
 ...
 ```
 
