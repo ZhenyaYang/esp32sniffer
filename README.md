@@ -18,8 +18,6 @@ DATA:04000000016d0c00d2000000d200000040000000ffffffffffffb827eb98c70bfffffffffff
 
 # Configure
 
-usage: `Capture.py port channel`
-
 # Building
 
 Builds with ESP-IDF v4.x
@@ -41,7 +39,7 @@ DATA:0100000063690b00650000006500000040000000ffffffffffffb8e85617cecefffffffffff
 ...
 ```
 
-Stop monitor `CTRL+]` and start `Capture.py`
+Stop monitor `CTRL+]` and start `Capture.py port channel`
 
 ```
 $ ./Capture.py
