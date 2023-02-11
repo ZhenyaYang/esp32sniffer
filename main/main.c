@@ -3,6 +3,7 @@
 #include "esp_system.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
+#include "soc/rtc_wdt.h"
 #include <stdio.h>
 #include <stdint.h>
 
@@ -51,6 +52,9 @@ void app_main() {
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_AP));
     ESP_ERROR_CHECK(esp_wifi_start());
     esp_wifi_set_promiscuous(true);
+    // Our connectivity bootloader has a wdt set up, so we need to reset it, if we want to use this firmware together with our bootloader
+    // Nothing bad too
+    rtc_wdt_feed();
     while (true)
     {
         int c = fgetc(stdin);

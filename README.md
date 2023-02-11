@@ -29,6 +29,8 @@ Build & flash:
 `$ cd build`
 `$ make flash`
 
+Or, you can copy the build/hello-world.bin along with our connectivity bootloader + partition table, to make it running in our sous vide/oven
+
 Monitor to see the packets:
 
 ```
