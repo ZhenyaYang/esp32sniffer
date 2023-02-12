@@ -23,7 +23,7 @@ print("Port: "+port+" Channel: "+str(chan)+" Mac: "+mac_str)
 
 mac = mac_str.replace(":", "")
 mac_bytes = bytearray.fromhex(mac)
-print(mac_bytes)
+
 ser = serial.Serial(port, 921600)
 
 ser.write(bytes([chan + OFFSET]))
