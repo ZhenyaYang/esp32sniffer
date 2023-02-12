@@ -29,9 +29,9 @@ IRAM_ATTR inline void send_packet(uint32_t ts_sec, uint32_t ts_usec, uint32_t le
 {
     uint32_t incl_len = len > 2000 ? 2000 : len;
 
-    printf("Packet % 3d.%06d %d %d\n", ts_sec, ts_usec, incl_len, len);
+    //printf("Packet % 3d.%06d %d %d\n", ts_sec, ts_usec, incl_len, len);
 
-    printf("DATA:");
+    printf("D:");
     send_int(ts_sec);
     send_int(ts_usec);
     send_int(incl_len);

@@ -52,11 +52,10 @@ try:
     while True:
         line = ser.readline()
         line = line.decode().strip()
-        if line.startswith("DATA:"):
-            data = line[5:]
+        print(line)
+        if line.startswith("D:"):
+            data = line[2:]
             write_hex(f, data)
-        else:
-            print(line)
 
 except KeyboardInterrupt:
     print("Stopping...")
