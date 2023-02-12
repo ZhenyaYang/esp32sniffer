@@ -29,7 +29,7 @@ ser = serial.Serial(port, 921600)
 ser.write(bytes([chan + OFFSET]))
 ser.write(mac_bytes)
 
-filename = "capture_%s.pcap" % datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = "capture_%s.pcap" % ("ch"+str(chan)+"_"+datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
 
 print("Creating capture file: %s" % filename)
 f = open(filename, 'wb')
