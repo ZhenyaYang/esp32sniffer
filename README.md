@@ -27,17 +27,10 @@ Build & flash:
 `$ cd build`
 `$ make flash`
 
-Monitor to see the packets:
+Or flash the prebuilt binaries directly:
+`$ esptool.py --chip esp32 -p /dev/ttyS6 -b 921600 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader.bin 0x10000 hello-world.bin 0x8000 partition-table.bin
 
-```
-$ make monitor
-...
-Packet   1.747875 101 101
-DATA:0100000063690b00650000006500000040000000ffffffffffffb8e85617ceceffffffffffff80c100054c45414c59010402040b1632080c1218243048606c0301062d1aad4917ffff0000000000000000000000000000000000000000007f080400000000000040dd0b0017f20a00010400000000
-...
-```
-
-Stop monitor `CTRL+]` and start `Capture.py port channel mac`
+Start `Capture.py port channel mac`
 
 ```
 $ ./Capture.py /dev/ttyS6 11 34:94:54:47:f9:f4
