@@ -93,7 +93,7 @@ static void core1Loop()
                 mac_addr[inputCnter - 1] = mac_byte;
                 if(inputCnter == 6)
                 {
-                    noMacFilter = (mac_addr[0] == 0)&&(mac_addr[1] == 0)&&(mac_addr[2] == 0)&&(mac_addr[3] == 0)&&(mac_addr[4] == 0)&&(mac_addr[5] == 0);
+                    noMacFilter = (mac_addr[0] == 0xff)&&(mac_addr[1] == 0xff)&&(mac_addr[2] == 0xff)&&(mac_addr[3] == 0xff)&&(mac_addr[4] == 0xff)&&(mac_addr[5] == 0xff);
                 }
             }
             // 1 byte channel and 6 bytes mac

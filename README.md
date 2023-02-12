@@ -30,7 +30,7 @@ Build & flash:
 Or flash the prebuilt binaries directly:
 `$ esptool.py --chip esp32 -p /dev/ttyS6 -b 921600 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader.bin 0x10000 hello-world.bin 0x8000 partition-table.bin
 
-Start `Capture.py port channel mac`
+Start `Capture.py port channel mac` or `Capture.py port channel' if you want to capture all traffic(this will torque our serial port with only 921600 baud rate)
 
 ```
 $ ./Capture.py /dev/ttyS6 11 34:94:54:47:f9:f4

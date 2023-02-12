@@ -17,13 +17,13 @@ if len(sys.argv) >= 3:
     if len(sys.argv) == 4:
         mac_str = sys.argv[3]
     else:
-        mac_str = "000000000000"
+        mac_str = "ff:ff:ff:ff:ff:ff"
 
 print("Port: "+port+" Channel: "+str(chan)+" Mac: "+mac_str)
 
 mac = mac_str.replace(":", "")
 mac_bytes = bytearray.fromhex(mac)
-
+print(mac_bytes)
 ser = serial.Serial(port, 921600)
 
 ser.write(bytes([chan + OFFSET]))
