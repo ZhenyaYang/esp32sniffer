@@ -11,10 +11,13 @@ import sys
 OFFSET = 50
 chan = 1
 port = "/dev/ttyS6"
-if len(sys.argv) == 4:
+if len(sys.argv) >= 3:
     port = sys.argv[1]
     chan = int(sys.argv[2])
-    mac_str = sys.argv[3]
+    if len(sys.argv) == 4:
+        mac_str = sys.argv[3]
+    else:
+        mac_str = "000000000000"
 
 print("Port: "+port+" Channel: "+str(chan)+" Mac: "+mac_str)
 
@@ -34,6 +37,10 @@ f = open(filename, 'wb')
 def write_hex(f, hex_string):
     #print("Writing: "+hex_string)
     f.write(bytes.fromhex(hex_string))
+    f.flush()
+
+def write_raw(f, data):
+    f.write(data)
     f.flush()
 
 # PCAP file header
