@@ -117,8 +117,6 @@ void app_main()
     ESP_ERROR_CHECK(esp_wifi_set_promiscuous_ctrl_filter(&filter));
     ESP_ERROR_CHECK(esp_wifi_start());
     esp_wifi_set_promiscuous(true);
-    // Our connectivity bootloader has a wdt set up, so if we want to use this firmware together with our bootloader we need to reset it
-    // Nothing bad too
     rtc_wdt_feed();
     xTaskCreatePinnedToCore(core1Loop, "Core1Loop", 4096, (void*)1, 1, NULL, 1);
 }
